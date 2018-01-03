@@ -150,11 +150,11 @@ export default {
         this.totalCount = 0;
         this.totalMoney = 0;
         this.$message({
-          message:'结账成功，感谢你又为店里除了一份力!',
-          type:"success"
-        })
+          message: "结账成功，感谢你又为店里除了一份力!",
+          type: "success"
+        });
       } else {
-        this.$message.error("请先选择商品!")
+        this.$message.error("请先选择商品!");
       }
     },
     // 删除所有商品
@@ -164,7 +164,18 @@ export default {
     },
     // 删除单个商品
     delSingleGoods(goods) {
-      this.tableDate = this.tableDate.filter(a => a.goodsId != goods.goodsId);
+      let arr = goods.count;
+      if (arr == 1) {
+        this.tableDate = this.tableDate.filter(a => a.goodsId != goods.goodsId);
+      } else {
+        var exTableData = this.tableDate;
+        for (var i = 0; i < exTableData.length; i++) {
+          if (exTableData[i].goodsId == goods.goodsId) {
+            exTableData[i].count--;
+          }
+        }
+        this.tableDate = exTableData;
+      }
       this.AllMoney();
     },
     // 添加商品
