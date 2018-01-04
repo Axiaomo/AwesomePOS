@@ -164,17 +164,14 @@ export default {
     },
     // 删除单个商品
     delSingleGoods(goods) {
-      let arr = goods.count;
-      if (arr == 1) {
-        this.tableDate = this.tableDate.filter(a => a.goodsId != goods.goodsId);
-      } else {
-        var exTableData = this.tableDate;
-        for (var i = 0; i < exTableData.length; i++) {
-          if (exTableData[i].goodsId == goods.goodsId) {
-            exTableData[i].count--;
-          }
+      for (var i = 0; i < this.tableDate.length; i++) {
+        if (goods.count == 1) {
+          this.tableDate = this.tableDate.filter(
+            a => a.goodsId != goods.goodsId
+          );
+        } else if (this.tableDate[i].goodsId == goods.goodsId) {
+          this.tableDate[i].count--;
         }
-        this.tableDate = exTableData;
       }
       this.AllMoney();
     },
